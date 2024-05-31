@@ -1,12 +1,4 @@
 <template>
-<<<<<<< Updated upstream
-  <router-view/>
-</template>
-
-<style lang="scss">
-
-</style>
-=======
   <div>
     <!-- 머리말 -->
     <HeaderCom />
@@ -29,4 +21,3 @@ export default {
 </script>
 
 <style lang="scss"></style>
->>>>>>> Stashed changes
