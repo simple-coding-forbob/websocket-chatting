@@ -1,4 +1,5 @@
 <template>
+<<<<<<< Updated upstream
   <div id="app">
     유저이름: 
     <input
@@ -16,17 +17,55 @@
     >
       <h3>유저이름: {{ item.userName }}</h3>
       <h3>내용: {{ item.content }}</h3>
+=======
+  <div class="content" id="websocket">
+    <div>&nbsp;</div>
+    <div class="row">
+      <div class="col">
+        <button class="btn btn-sm btn-info" @click="connect">
+          Create connection
+        </button>
+        <button class="btn btn-sm btn-success" @click="startTask">
+          Start Task
+        </button>
+        <button class="btn btn-sm btn-danger" @click="stopTask">
+          Stop Task
+        </button>
+        <button class="btn btn-sm btn-primary" @click="disconnect">
+          Close connection
+        </button>
+      </div>
+    </div>
+    <div>&nbsp;</div>
+    <div class="row">
+      <div class="col">
+        <ul class="list-group" style="height: 500px; overflow: scroll">
+          <li
+            class="list-group-item d-flex justify-content-between align-items-center"
+            v-for="(m, idx) in messages"
+            :key="'m-' + idx"
+          >
+            {{ m }}
+          </li>
+        </ul>
+      </div>
+>>>>>>> Stashed changes
     </div>
   </div>
 </template>
 
 <script>
+<<<<<<< Updated upstream
 import Stomp from 'webstomp-client'
 import SockJS from 'sockjs-client'
+=======
+import { Client } from "@stomp/stompjs"
+>>>>>>> Stashed changes
 
 export default {
   data() {
     return {
+<<<<<<< Updated upstream
       userName: "",
       message: "",
       recvList: []
@@ -82,4 +121,49 @@ export default {
     }
   }
 }
+=======
+      stompClient: null,
+      messages: [],
+    };
+  },
+  methods: {
+    connect() {
+      let socket = new SockJS("/connect");
+      stompClient = Stomp.over(socket);
+      stompClient.connect({}, function (frame) {
+        this.handleMessageReceipt("Connected");
+
+        // 구독
+        // 사용법 : stompClient.subscribe(채팅방이름, 함수)
+        stompClient.subscribe("/topic/messages", function (messageOutput) {
+          this.handleMessageReceipt(messageOutput.body);
+        });
+      });
+    },
+    disconnect() {
+      if (stompClient != null) {
+        stompClient.disconnect();
+      }
+      this.handleMessageReceipt("Disconnected");
+    },
+    startTask() {
+      if (stompClient != null) {
+        stompClient.send("/ws/start");
+      } else {
+        alert("Please connect first");
+      }
+    },
+    stopTask() {
+      if (stompClient != null) {
+        stompClient.send("/ws/stop");
+      } else {
+        alert("Please connect first");
+      }
+    },
+    handleMessageReceipt(messageOutput) {
+      this.messages.push(messageOutput);
+    },
+  },
+};
+>>>>>>> Stashed changes
 </script>
