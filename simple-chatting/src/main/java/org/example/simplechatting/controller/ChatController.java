@@ -3,6 +3,7 @@ package org.example.simplechatting.controller;
 import org.example.simplechatting.model.ChatMember;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  *     @SendTo("/sub") : /sub 로 메시지를 전달할 URL
  *     => 의미 : /pub 로 메시지를 받고, /sub 로 메시지를 보내줍니다.
  */
-@RestController
+@Controller
 public class ChatController {
     @MessageMapping("/pub")
     @SendTo("/sub")
