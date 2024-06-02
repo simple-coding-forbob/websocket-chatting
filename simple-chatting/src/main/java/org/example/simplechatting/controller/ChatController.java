@@ -1,9 +1,8 @@
 package org.example.simplechatting.controller;
 
-import org.example.simplechatting.model.ChatMember;
+import org.example.simplechatting.dto.ChatMemberDto;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -19,11 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class ChatController {
     @MessageMapping("/pub")
     @SendTo("/sub")
-    public ChatMember startChatting(ChatMember chatMember) {
+    public ChatMemberDto startChatting(ChatMemberDto chatMember) {
         String userId = chatMember.getUserId();
         String chatMessage = chatMember.getChatMessage();
 
-        ChatMember chatMember2 = new ChatMember(userId, chatMessage);
+        ChatMemberDto chatMember2 = new ChatMemberDto(userId, chatMessage);
 
         return chatMember2;
     }
