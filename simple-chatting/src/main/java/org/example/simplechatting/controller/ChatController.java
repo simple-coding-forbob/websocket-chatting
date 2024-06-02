@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  *     @SendTo("/sub") : /sub 로 메시지를 전달할 URL
  *     => 의미 : /pub 로 메시지를 받고, /sub 로 메시지를 보내줍니다.
  */
-@Controller
+@RestController
 public class ChatController {
     @MessageMapping("/pub")
     @SendTo("/sub")
